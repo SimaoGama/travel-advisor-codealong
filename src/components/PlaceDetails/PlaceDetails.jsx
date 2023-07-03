@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -30,8 +30,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PlaceDetails = ({ place }) => {
+const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (selected && refProp?.current) {
+      console.log("Scrolling into view");
+      refProp.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [selected, refProp]);
+
+  if (selected) {
+    refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
     <Card elevation={6}>
       <CardMedia
